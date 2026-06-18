@@ -1,0 +1,16 @@
+Tooken 1: 1|O8UiMtuZVIsQikwLVgsM1LiK4h847Jds0XQLudGFbe8cd4df
+
+# Registro
+{
+    "name": "Operador Gerson",
+    "email": "tecnico2@gmail.com",
+    "password": "senha_segura_123",
+    "password_confirmation": "senha_segura_123"
+}
+
+# Criação
+{
+    "title": "Nova coleta",
+    "content": "PH 7.1"
+}
+
