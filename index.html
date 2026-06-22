@@ -3,11 +3,35 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hello World</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Painel IoT - Augen</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body { font-family: Arial, sans-serif; background-color: #f4f7f6; padding: 20px; }
+        .container { max-width: 900px; margin: 0 auto; background: white; padding: 20px; border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); }
+        select { padding: 10px; font-size: 16px; margin-bottom: 20px; border-radius: 5px; width: 100%; }
+    </style>
 </head>
 <body>
-    <h1 id="hello-world" class="clickable">Hello World</h1>
+
+    <div class="container">
+        <h2>Monitoramento de Telemetria (Tempo Real)</h2>
+        
+        <select id="sensorSelect">
+            <option value="2">Ponto Coleta Laranjal</option>
+            <option value="3">Estação Centro</option>
+            <option value="4">Filtro Fragata</option>
+            <option value="5">Reservatório Guabiroba</option>
+            <option value="6">Captação São Gonçalo</option>
+            <option value="7">Estação Três Vendas</option>
+            <option value="8">Ponto Coleta Areal</option>
+            <option value="9">Filtro Porto</option>
+            <option value="10">Reservatório Py Crespo</option>
+            <option value="11">Estação Colônia</option>
+        </select>
+
+        <canvas id="waterChart" width="400" height="200"></canvas>
+    </div>
+
     <script src="script.js"></script>
 </body>
 </html>

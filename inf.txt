@@ -1,4 +1,4 @@
-Tooken 1: 1|O8UiMtuZVIsQikwLVgsM1LiK4h847Jds0XQLudGFbe8cd4df
+Tooken 1: 1|z207Ob1DvNJDLiOrZEeFhrzgdOOUdnTiMfRHWwYT72712b5e
 
 # Registro
 {
@@ -13,4 +13,29 @@ Tooken 1: 1|O8UiMtuZVIsQikwLVgsM1LiK4h847Jds0XQLudGFbe8cd4df
     "title": "Nova coleta",
     "content": "PH 7.1"
 }
+
+"ID: 2 | Ponto Coleta Laranjal -> Token: 2|w3HJ6f4fSWpDMXE504tbsyAHMezLaso5HqEjAK4Xc327f775" // vendor/psy/psysh/src/ExecutionLoopClosure.php(55) : eval()'d code:4
+"ID: 3 | Estação Centro -> Token: 3|PDA7phzgnPGd5Kuj2xjhR7KG275wlX7erTAxngvt63c04e7c" // vendor/psy/psysh/src/ExecutionLoopClosure.php(55) : eval()'d code:4
+"ID: 4 | Filtro Fragata -> Token: 4|otmHCgt6nMnRiuVdJUMC9sEqKfN9a959SUrK1L6Bfd7942d7" // vendor/psy/psysh/src/ExecutionLoopClosure.php(55) : eval()'d code:4
+"ID: 5 | Reservatório Guabiroba -> Token: 5|XXlckAMgwVYwLhfgdqDjyN9hixNjKNXkplJ2ChFR12519de3" // vendor/psy/psysh/src/ExecutionLoopClosure.php(55) : eval()'d code:4
+"ID: 6 | Captação São Gonçalo -> Token: 6|cEjdTf7KY5d9rhCwBG7zn0vwfYZ3RKdVKsksZ09Oc0b42b08" // vendor/psy/psysh/src/ExecutionLoopClosure.php(55) : eval()'d code:4
+"ID: 7 | Estação Três Vendas -> Token: 7|Z7NhmCgOs9kSQYZxMKabXkRMUhS3gmX7nMF2Y8HOa48ab93f" // vendor/psy/psysh/src/ExecutionLoopClosure.php(55) : eval()'d code:4
+"ID: 8 | Ponto Coleta Areal -> Token: 8|zZBzBqKFyaydFNgSiJGwcDWuXiRQVCVWC16Aovhg6fb980e8" // vendor/psy/psysh/src/ExecutionLoopClosure.php(55) : eval()'d code:4
+"ID: 9 | Filtro Porto -> Token: 9|dJPWilXX6xJPVqqd3z3RA0OGY8JGVYYjdXuZF79Ud61c52b6" // vendor/psy/psysh/src/ExecutionLoopClosure.php(55) : eval()'d code:4
+"ID: 10 | Reservatório Py Crespo -> Token: 10|8ZeUJiCKnZK7wg4tB5REAwSq4qmUJZmjmWsu0dQW34048886" // vendor/psy/psysh/src/ExecutionLoopClosure.php(55) : eval()'d code:4
+"ID: 11 | Estação Colônia -> Token: 11|yFqfs31vqT8DXGrJqHka09dXIPb6S8ylZOntEXS3666417a3" // vendor/psy/psysh/src/ExecutionLoopClosure.php(55) : eval()'d code:4
+= Illuminate\Support\Collection {#7835
+    all: [
+      "Ponto Coleta Laranjal",
+      "Estação Centro",
+      "Filtro Fragata",
+      "Reservatório Guabiroba",
+      "Captação São Gonçalo",
+      "Estação Três Vendas",
+      "Ponto Coleta Areal",
+      "Filtro Porto",
+      "Reservatório Py Crespo",
+      "Estação Colônia",
+    ],
+  }
 
