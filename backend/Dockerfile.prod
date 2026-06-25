@@ -1,0 +1,30 @@
+# Usamos a imagem oficial do PHP com o servidor Apache embutido
+FROM php:8.2-apache
+
+# Instalamos apenas o essencial para o PostgreSQL e o Laravel
+RUN apt-get update && apt-get install -y \
+    libpq-dev \
+    zip \
+    unzip \
+    && docker-php-ext-install pdo pdo_pgsql
+
+# Ativamos o módulo de reescrita de URLs (necessário para as rotas da API)
+RUN a2enmod rewrite
+
+# Definimos onde o código vai morar dentro do contêiner
+WORKDIR /var/www/html
+
+# Copiamos todo o seu código do Windows para dentro da imagem
+COPY . /var/www/html
+
+# Baixamos o Composer e instalamos as dependências do Laravel (ignorando ferramentas de teste)
+COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
+RUN composer install --no-dev --optimize-autoloader
+
+# Ajustamos as permissões de pasta para o Apache não dar erro de "Acesso Negado"
+RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache
+
+# Apontamos o Apache direto para a pasta "public" do Laravel (padrão de segurança)
+ENV APACHE_DOCUMENT_ROOT /var/www/html/public
+RUN sed -ri -e 's!/var/www/html!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/sites-available/*.conf
+RUN sed -ri -e 's!/var/www/!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/apache2.conf /etc/apache2/conf-available/*.conf
