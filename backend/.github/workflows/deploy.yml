@@ -1,0 +1,65 @@
+name: Deploy API to AWS
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    name: Build and Deploy
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: 1. Baixando o código do GitHub
+      uses: actions/checkout@v4
+
+    - name: 2. Apresentando credenciais da AWS
+      uses: aws-actions/configure-aws-credentials@v4
+      with:
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws-region: us-east-1 # Região do seu cofre ECR
+
+    - name: 3. Login no Amazon ECR
+      id: login-ecr
+      uses: aws-actions/amazon-ecr-login@v2
+
+    - name: 4. Cozinhando a imagem e enviando para o cofre
+      env:
+        ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+        ECR_REPOSITORY: acqua-api
+        IMAGE_TAG: latest
+      run: |
+        # Entrando na pasta onde o Dockerfile e o código do Laravel estão
+        cd backend
+        docker build -f Dockerfile.prod -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
+        docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+
+    - name: 5. Conectando no EC2 e atualizando o sistema
+      uses: appleboy/ssh-action@v1.0.3
+      env:
+        ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+        ECR_REPOSITORY: acqua-api
+        IMAGE_TAG: latest
+      with:
+        host: ${{ secrets.EC2_HOST }}
+        username: ubuntu
+        key: ${{ secrets.EC2_SSH_KEY }}
+        envs: ECR_REGISTRY,ECR_REPOSITORY,IMAGE_TAG
+        script: |
+          # 5.1 Login no cofre a partir do servidor
+          aws ecr get-login-password --region us-east-1 | sudo docker login --username AWS --password-stdin $ECR_REGISTRY
+          
+          # 5.2 Baixa a versão mais recente da API
+          sudo docker pull $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+          
+          # 5.3 Derruba o motor antigo (ignora erro se for a primeira vez)
+          sudo docker stop acqua-api-server || true
+          sudo docker rm acqua-api-server || true
+          
+          # 5.4 Liga o motor novo usando o arquivo secreto .env.prod que criamos no servidor
+          sudo docker run -d -p 80:80 --env-file /home/ubuntu/.env.prod --name acqua-api-server $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+          
+          # 5.5 Atualiza o banco de dados se houver novas tabelas
+          sudo docker exec acqua-api-server php artisan migrate --force
